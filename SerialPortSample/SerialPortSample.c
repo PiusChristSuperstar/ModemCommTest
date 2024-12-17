@@ -264,7 +264,7 @@ void scanPhoto(int fileDescriptor, SerialComms *serialComms)
  Read [Log: sensorLowCount: 2\nCTS:ATCELL\nLog: We're at the next cell. Stopping clutch.\nCTS:OK\nLog: Moving to next cell.\nLog: Turning motor on to move to next cell\nLog: Starting clutch.\n]
  */
     
-    response = [serialComms readSerialCommand:fileDescriptor];
+    response = [serialComms readSerialCommand];
         if (response == Ok)
         {
             result = true;
@@ -347,7 +347,7 @@ int main(int argc, const char * argv[])
         
         NSLog(@"Before: %@", [serialComms usbPath]);
         //kernResult = [serialComms getModemPath: serialPortIterator defaultPath: &preferedPath];
-        kernResult = [serialComms getUsbPath];
+        kernResult = [serialComms findUsbPath];
         NSLog(@"After: %@", [serialComms usbPath]);
         if (KERN_SUCCESS != kernResult)
         {
@@ -378,7 +378,7 @@ int main(int argc, const char * argv[])
         NSLog(@"Sleeping for [%ld] seconds to allow Arduino to initialise.", gCapturePause);
         usleep((int)gCapturePause * 1000000);
         
-        if ([serialComms isArduinoOnline:fileDescriptor])
+        if ([serialComms isArduinoOnline])
         {
             NSLog(@"Arduino is online and ready to receive commands.");
             runScanning(fileDescriptor, serialComms);  // We're ready to go, start scanning
@@ -390,7 +390,7 @@ int main(int argc, const char * argv[])
             gCurrentState = EX_IOERR;
         }
         
-        [serialComms closeSerialPort:fileDescriptor];
+        [serialComms closeSerialPort];
         NSLog(@"Modem port closed.");
     }
     

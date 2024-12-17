@@ -18,6 +18,7 @@
     if (self)
     {
         _preferedPath = preferredPort;
+        _fileDescriptor = -1;
         //IOObjectRelease(serialPortIterator);  // I doubt this is needed
     }
     return self;
@@ -33,11 +34,15 @@
 - (int)openSerialPort
 //- (int)openSerialPort:(NSString *)portPath
 {
-    int fileDescriptor = -1;
     int handshake;
     struct termios options;
     NSString *lastError = @"";
     
+    if (_fileDescriptor != -1)
+    {
+        NSLog(@"Error. Port [%@] appears to be open already. Close it before opening - %s(%d).\n", _preferedPath, strerror(errno), errno);
+        goto error;
+    }
     
     // The port functions require a char array, so convert the NSString
     const char *cPortPath = [_preferedPath UTF8String];
@@ -45,8 +50,8 @@
     // Open the serial port read/write, with no controlling terminal, and don't wait for a connection.
     // The O_NONBLOCK flag also causes subsequent I/O on the device to be non-blocking.
     // See open(2) <x-man-page://2/open> for details.
-    fileDescriptor = open(cPortPath, O_RDWR | O_NOCTTY | O_NONBLOCK);
-    if (fileDescriptor == -1)
+    _fileDescriptor = open(cPortPath, O_RDWR | O_NOCTTY | O_NONBLOCK);
+    if (_fileDescriptor == -1)
     {
         NSLog(@"Error opening serial port %@ - %s(%d).\n", _preferedPath, strerror(errno), errno);
         goto error;
@@ -56,7 +61,7 @@
     // unless the TIOCEXCL ioctl is issued. This will prevent additional opens except by root-owned
     // processes.
     // See tty(4) <x-man-page//4/tty> and ioctl(2) <x-man-page//2/ioctl> for details.
-    if (ioctl(fileDescriptor, TIOCEXCL) == -1)
+    if (ioctl(_fileDescriptor, TIOCEXCL) == -1)
     {
         NSLog(@"Error setting TIOCEXCL on %@ - %s(%d).\n", _preferedPath, strerror(errno), errno);
         goto error;
@@ -64,14 +69,14 @@
     
     // Now that the device is open, clear the O_NONBLOCK flag so subsequent I/O will block.
     // See fcntl(2) <x-man-page//2/fcntl> for details.
-    if (fcntl(fileDescriptor, F_SETFL, 0) == -1)
+    if (fcntl(_fileDescriptor, F_SETFL, 0) == -1)
     {
         NSLog(@"Error clearing O_NONBLOCK %@ - %s(%d).\n", _preferedPath, strerror(errno), errno);
         goto error;
     }
     
     // Get the current options and save them so we can restore the default settings later.
-    if (tcgetattr(fileDescriptor, &_gOriginalTTYAttrs) == -1)
+    if (tcgetattr(_fileDescriptor, &_gOriginalTTYAttrs) == -1)
     {
         NSLog(@"Error getting tty attributes %@ - %s(%d).\n", _preferedPath, strerror(errno), errno);
         goto error;
@@ -126,7 +131,7 @@
     NSLog(@"Output baud rate changed to %d\n", (int) cfgetospeed(&options));
     
     // Cause the new options to take effect immediately.
-    if (tcsetattr(fileDescriptor, TCSANOW, &options) == -1)
+    if (tcsetattr(_fileDescriptor, TCSANOW, &options) == -1)
     {
         lastError = [NSString stringWithFormat:@"Error setting tty attributes %@ - %s(%d).", _preferedPath, strerror(errno), errno];
         NSLog(@"%@", lastError);
@@ -137,14 +142,14 @@
     // See tty(4) <x-man-page//4/tty> and ioctl(2) <x-man-page//2/ioctl> for details.
     
     // Assert Data Terminal Ready (DTR)
-    if (ioctl(fileDescriptor, TIOCSDTR) == -1)
+    if (ioctl(_fileDescriptor, TIOCSDTR) == -1)
     {
         lastError = [NSString stringWithFormat:@"Error asserting DTR %@ - %s(%d).", _preferedPath, strerror(errno), errno];
         NSLog(@"%@", lastError);
     }
     
     // Clear Data Terminal Ready (DTR)
-    if (ioctl(fileDescriptor, TIOCCDTR) == -1)
+    if (ioctl(_fileDescriptor, TIOCCDTR) == -1)
     {
         lastError = [NSString stringWithFormat:@"Error clearing DTR %@ - %s(%d).", _preferedPath, strerror(errno), errno];
         NSLog(@"%@", lastError);
@@ -152,7 +157,7 @@
     
     // Set the modem lines depending on the bits set in handshake
     handshake = TIOCM_DTR | TIOCM_RTS | TIOCM_CTS | TIOCM_DSR;
-    if (ioctl(fileDescriptor, TIOCMSET, &handshake) == -1)
+    if (ioctl(_fileDescriptor, TIOCMSET, &handshake) == -1)
     {
         lastError = [NSString stringWithFormat:@"Error setting handshake lines %@ - %s(%d).", _preferedPath, strerror(errno), errno];
         NSLog(@"%@", lastError);
@@ -162,7 +167,7 @@
     // See tty(4) <x-man-page//4/tty> and ioctl(2) <x-man-page//2/ioctl> for details.
     
     // Store the state of the modem lines in handshake
-    if (ioctl(fileDescriptor, TIOCMGET, &handshake) == -1)
+    if (ioctl(_fileDescriptor, TIOCMGET, &handshake) == -1)
     {
         lastError = [NSString stringWithFormat:@"Error getting handshake lines %@ - %s(%d).", _preferedPath, strerror(errno), errno];
         NSLog(@"%@", lastError);
@@ -177,7 +182,7 @@
     // app reads lines of characters, the app can't do anything until the line termination character has been
     // received anyway. The most common applications which are sensitive to read latency are MIDI and IrDA
     // applications.
-    if (ioctl(fileDescriptor, IOSSDATALAT, &mics) == -1)
+    if (ioctl(_fileDescriptor, IOSSDATALAT, &mics) == -1)
     {
         // set latency to 1 microsecond
         lastError = [NSString stringWithFormat:@"Error setting read latency %@ - %s(%d).", _preferedPath, strerror(errno), errno];
@@ -186,13 +191,13 @@
     }
     
     // Success
-    return fileDescriptor;
+    return _fileDescriptor;
     
     // Failure path
 error:
-    if (fileDescriptor != -1)
+    if (_fileDescriptor != -1)
     {
-        close(fileDescriptor);
+        close(_fileDescriptor);
     }
     
     return -1;
@@ -201,12 +206,12 @@ error:
 // -------------------------------------------------------------------------------------------
 
 // Given the file descriptor for a serial device, close that device.
-- (void)closeSerialPort:(int)fileDescriptor
+- (void)closeSerialPort
 {
     // Block until all written output has been sent from the device.
     // Note that this call is simply passed on to the serial device driver.
     // See tcsendbreak(3) <x-man-page://3/tcsendbreak> for details.
-    if (tcdrain(fileDescriptor) == -1)
+    if (tcdrain(_fileDescriptor) == -1)
     {
         NSLog(@"Error waiting for drain - %s(%d).", strerror(errno), errno);
     }
@@ -214,12 +219,12 @@ error:
     // Traditionally it is good practice to reset a serial port back to
     // the state in which you found it. This is why the original termios struct
     // was saved.
-    if (tcsetattr(fileDescriptor, TCSANOW, &_gOriginalTTYAttrs) == -1)
+    if (tcsetattr(_fileDescriptor, TCSANOW, &_gOriginalTTYAttrs) == -1)
     {
         NSLog(@"Error resetting tty attributes - %s(%d).", strerror(errno), errno);
     }
 
-    close(fileDescriptor);
+    close(_fileDescriptor);
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -276,7 +281,7 @@ exit:
 // If no valid ports are found the path name is set to an empty string.
 // We assume that 'findSerialPorts' has been run before which has initialised '_serialPortIterator'
 //- (kern_return_t) getModemPath:(io_iterator_t) serialPortIterator defaultPath:(NSString **)preferredPort
-- (kern_return_t) getUsbPath
+- (kern_return_t) findUsbPath
 {
     io_object_t modemService;
     kern_return_t kernResult = KERN_FAILURE;
@@ -347,7 +352,7 @@ exit:
 // Given the file descriptor for the USB port where the Arduino is plugged in, check if we can
 // communicate with it. If comms has been established and the Arduino is ready to receive
 // instructions, return true.
-- (Boolean) isArduinoOnline:(int) fileDescriptor
+- (Boolean) isArduinoOnline
 {
     char buffer[256];    // Input buffer
     char *bufPtr;        // Current char in buffer
@@ -360,7 +365,7 @@ exit:
     // First check if there is anything in the buffer. This is likely the case. After opening the USB port, the
     // Arduino sends at least a CMD_READY notification
     bufPtr = buffer;
-    numBytes = read(fileDescriptor, bufPtr, &buffer[sizeof(buffer)] - bufPtr - 1);
+    numBytes = read(_fileDescriptor, bufPtr, &buffer[sizeof(buffer)] - bufPtr - 1);
     
     if (numBytes == -1)
     {
@@ -376,7 +381,7 @@ exit:
         NSLog(@"Try #%d", tries);
         
         // Send a ping to the Arduino
-        numBytes = write(fileDescriptor, CMD_PING, strlen(CMD_PING));
+        numBytes = write(_fileDescriptor, CMD_PING, strlen(CMD_PING));
         if (numBytes == -1)
         {
             NSLog(@"%@", [NSString stringWithFormat:@"Error writing to Arduino - %s(%d).", strerror(errno), errno]);
@@ -400,7 +405,7 @@ exit:
         ///TODO: Normally we still have the CTS:READY in our buffer first, which the Arduino sends after opening the port.
         ///So most buffers on first read look something like "CTS:READY\nCTS:READY\nCTS:OK\n". We need to decipher this properly.
 
-        response = [self readSerialCommand:fileDescriptor];
+        response = [self readSerialCommand];
         if (response == Ok)
         {
             result = true;
@@ -415,7 +420,7 @@ exit:
 
 // Read a command from the USB port. Commands (or responses) are terminated by a NewLine character.
 // We assume that the port has been opened successfully by this stage.
--(ArduinoResponse) readSerialCommand:(int)fileDescriptor
+-(ArduinoResponse) readSerialCommand
 {
     char buffer[256];       // Input buffer
     char *bufPtr;           // Current char in buffer
@@ -426,7 +431,7 @@ exit:
     bufPtr = buffer;
     do
     {
-        numBytes = read(fileDescriptor, bufPtr, &buffer[sizeof(buffer)] - bufPtr - 1);
+        numBytes = read(_fileDescriptor, bufPtr, &buffer[sizeof(buffer)] - bufPtr - 1);
         if (numBytes == -1)
         {
             NSLog(@"%@", [NSString stringWithFormat:@"Error reading from port - %s(%d).", strerror(errno), errno]);

@@ -28,7 +28,8 @@
 // Hold the original termios attributes so we can reset them
 @property struct termios gOriginalTTYAttrs;
 @property io_iterator_t serialPortIterator;
-@property NSString *preferedPath;      // configured USB port. If not found, the app will try the first one available
+@property NSString *preferedPath;       // configured USB port. If not found, the app will try the first one available
+@property int fileDescriptor;           // the file descriptor that we're using to read/write through
 
 - (id)init:(NSString *)preferedPath;
 
@@ -37,18 +38,18 @@
 - (kern_return_t) findSerialPorts;
 
 //- (kern_return_t) getModemPath:(io_iterator_t) serialPortIterator defaultPath:(NSString **)preferredPort;
-- (kern_return_t) getUsbPath;
+- (kern_return_t) findUsbPath;
 
 - (NSString *) usbPath;
 
 // TODO : make the fileDescriptor a class property
 - (int)openSerialPort;
 
-- (void)closeSerialPort:(int)fileDescriptor;
+- (void)closeSerialPort;
 
-- (Boolean) isArduinoOnline:(int) fileDescriptor;
+- (Boolean) isArduinoOnline;
 
-- (ArduinoResponse) readSerialCommand:(int)fileDescriptor;
+- (ArduinoResponse) readSerialCommand;
 
 
 /*
