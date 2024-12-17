@@ -1,0 +1,18 @@
+//
+//  settings.xcconfig
+//  SerialPortSample
+//
+//  Created by Pius Ott on 29/10/2024.
+//
+
+// Configuration settings file for SerialPortSample app. The format for all settings is:
+// [SETTING_NAME]="[VALUE]"
+// The value needs to be in single-quotes
+// Lines starting with // will be ignored as comments. No end of line comments are possible
+// at this stage
+
+CELLS_TO_READ='4'
+USB_PORT='/dev/cu.usbserial-0001'
+LOGFILE_NAME='~/dev/XCode/ModemCommTest/ScanBrain.log'
+IMAGE_LOCATION='~/dev/XCode/ModemCommTest/Images'
+CAPTURE_PAUSE='3'

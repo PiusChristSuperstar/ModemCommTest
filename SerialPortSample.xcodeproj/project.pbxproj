@@ -1,0 +1,359 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		570AA0E52CFECB6F008D69B5 /* SerialBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 570AA0E42CFECB6F008D69B5 /* SerialBuffer.m */; };
+		57A93DEC2D112D8000D09DDC /* SerialComms.m in Sources */ = {isa = PBXBuildFile; fileRef = 57A93DEB2D112D8000D09DDC /* SerialComms.m */; };
+		57A93DF02D1134BF00D09DDC /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 57A93DEF2D1134BF00D09DDC /* Utilities.m */; };
+		BF338FA1182042AC004B691B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF338FA0182042AC004B691B /* CoreFoundation.framework */; };
+		BF338FA4182042AC004B691B /* SerialPortSample.c in Sources */ = {isa = PBXBuildFile; fileRef = BF338FA3182042AC004B691B /* SerialPortSample.c */; };
+		BF338FAD18204959004B691B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF338FAC18204959004B691B /* IOKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BF338F9B182042AC004B691B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		570AA0E32CFECB6F008D69B5 /* SerialBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SerialBuffer.h; sourceTree = "<group>"; };
+		570AA0E42CFECB6F008D69B5 /* SerialBuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SerialBuffer.m; sourceTree = "<group>"; };
+		5735AF9C2CD09C00002EF938 /* settings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = settings.xcconfig; sourceTree = "<group>"; };
+		57A93DEB2D112D8000D09DDC /* SerialComms.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SerialComms.m; sourceTree = "<group>"; };
+		57A93DED2D112DA500D09DDC /* SerialComms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SerialComms.h; sourceTree = "<group>"; };
+		57A93DEE2D1133A300D09DDC /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		57A93DEF2D1134BF00D09DDC /* Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		57A93DF12D11510B00D09DDC /* ArduinoResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArduinoResponse.h; sourceTree = "<group>"; };
+		68B3EFB6235F51F50001AC2A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7072B409DA5E41F32E0DFCD1 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		7465550013226B30E22E3FF8 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
+		BF338F9D182042AC004B691B /* SerialPortSample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SerialPortSample; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF338FA0182042AC004B691B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		BF338FA3182042AC004B691B /* SerialPortSample.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = SerialPortSample.c; sourceTree = "<group>"; };
+		BF338FAC18204959004B691B /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BF338F9A182042AC004B691B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF338FA1182042AC004B691B /* CoreFoundation.framework in Frameworks */,
+				BF338FAD18204959004B691B /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0A41243121D04907DE22FE82 /* LICENSE */ = {
+			isa = PBXGroup;
+			children = (
+				7072B409DA5E41F32E0DFCD1 /* LICENSE.txt */,
+			);
+			path = LICENSE;
+			sourceTree = "<group>";
+		};
+		BF338F94182042AC004B691B = {
+			isa = PBXGroup;
+			children = (
+				5735AF9C2CD09C00002EF938 /* settings.xcconfig */,
+				68B3EFB6235F51F50001AC2A /* README.md */,
+				BF338FA2182042AC004B691B /* SerialPortSample */,
+				BF338F9F182042AC004B691B /* Frameworks */,
+				BF338F9E182042AC004B691B /* Products */,
+				D500EFDB97AE7B26DD85DB4E /* Configuration */,
+				0A41243121D04907DE22FE82 /* LICENSE */,
+			);
+			sourceTree = "<group>";
+		};
+		BF338F9E182042AC004B691B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BF338F9D182042AC004B691B /* SerialPortSample */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BF338F9F182042AC004B691B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF338FA0182042AC004B691B /* CoreFoundation.framework */,
+				BF338FAC18204959004B691B /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF338FA2182042AC004B691B /* SerialPortSample */ = {
+			isa = PBXGroup;
+			children = (
+				BF338FA3182042AC004B691B /* SerialPortSample.c */,
+				570AA0E32CFECB6F008D69B5 /* SerialBuffer.h */,
+				570AA0E42CFECB6F008D69B5 /* SerialBuffer.m */,
+				57A93DEB2D112D8000D09DDC /* SerialComms.m */,
+				57A93DED2D112DA500D09DDC /* SerialComms.h */,
+				57A93DEE2D1133A300D09DDC /* Utilities.h */,
+				57A93DEF2D1134BF00D09DDC /* Utilities.m */,
+				57A93DF12D11510B00D09DDC /* ArduinoResponse.h */,
+			);
+			path = SerialPortSample;
+			sourceTree = "<group>";
+		};
+		D500EFDB97AE7B26DD85DB4E /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				7465550013226B30E22E3FF8 /* SampleCode.xcconfig */,
+			);
+			name = Configuration;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BF338F9C182042AC004B691B /* SerialPortSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF338FA9182042AC004B691B /* Build configuration list for PBXNativeTarget "SerialPortSample" */;
+			buildPhases = (
+				BF338F99182042AC004B691B /* Sources */,
+				BF338F9A182042AC004B691B /* Frameworks */,
+				BF338F9B182042AC004B691B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SerialPortSample;
+			productName = SerialPortSample;
+			productReference = BF338F9D182042AC004B691B /* SerialPortSample */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BF338F95182042AC004B691B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1610;
+				ORGANIZATIONNAME = Apple;
+				TargetAttributes = {
+					BF338F9C182042AC004B691B = {
+						DevelopmentTeam = ARHMSH5939;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = BF338F98182042AC004B691B /* Build configuration list for PBXProject "SerialPortSample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BF338F94182042AC004B691B;
+			productRefGroup = BF338F9E182042AC004B691B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BF338F9C182042AC004B691B /* SerialPortSample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BF338F99182042AC004B691B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				570AA0E52CFECB6F008D69B5 /* SerialBuffer.m in Sources */,
+				BF338FA4182042AC004B691B /* SerialPortSample.c in Sources */,
+				57A93DF02D1134BF00D09DDC /* Utilities.m in Sources */,
+				57A93DEC2D112D8000D09DDC /* SerialComms.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BF338FA7182042AC004B691B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7465550013226B30E22E3FF8 /* SampleCode.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BF338FA8182042AC004B691B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7465550013226B30E22E3FF8 /* SampleCode.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		BF338FAA182042AC004B691B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7465550013226B30E22E3FF8 /* SampleCode.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = ARHMSH5939;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				OTHER_CFLAGS = "";
+				"OTHER_CFLAGS[arch=*]" = (
+					"-x",
+					"objective-c",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Debug;
+		};
+		BF338FAB182042AC004B691B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7465550013226B30E22E3FF8 /* SampleCode.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = ARHMSH5939;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				"OTHER_CFLAGS[arch=*]" = (
+					"-x",
+					"objective-c",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BF338F98182042AC004B691B /* Build configuration list for PBXProject "SerialPortSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF338FA7182042AC004B691B /* Debug */,
+				BF338FA8182042AC004B691B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF338FA9182042AC004B691B /* Build configuration list for PBXNativeTarget "SerialPortSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF338FAA182042AC004B691B /* Debug */,
+				BF338FAB182042AC004B691B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BF338F95182042AC004B691B /* Project object */;
+}
